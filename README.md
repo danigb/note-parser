@@ -1,6 +1,6 @@
 # note-parse
 
-Parse notes with javascript:
+Parse notes with javascript. Fast and simple:
 
 ```js
 var parse = require('note-parse');

@@ -4,6 +4,12 @@ assert = require('assert');
 var parse = require('..');
 
 vows.describe('Note parse').addBatch({
+  "parse a parsed note return itself": function() {
+    note = parse('c#3');
+    rep = parse(note);
+    assert.deepEqual(rep, note);
+    assert(rep === note);
+  },
   "parse pitchClass": function() {
     assert.equal(parse('c').pitchClass, 'c');
     assert.equal(parse('C').pitchClass, 'c');

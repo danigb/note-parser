@@ -11,10 +11,15 @@ var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?\d{0,1})$/
  * - octave: the octave as integer. If not present in the string, its 2
  */
 module.exports = function(note) {
+  if(typeof(note.pitchClass) !== 'undefined'
+    && typeof(note.accidentals) !== 'undefined'
+    && typeof(note.octave) !== 'undefined')
+    return note;
   var match = NOTE.exec(note);
   if(match) {
     var octave = match[3] !== '' ? +match[3] : 2;
-    return { pitchClass: match[1].toLowerCase(), accidentals: match[2], octave: octave };
+    return { pitchClass: match[1].toLowerCase(),
+      accidentals: match[2], octave: octave };
   } else {
     return null;
   }

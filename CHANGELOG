@@ -1,0 +1,6 @@
+[0.2.0]
+- Parse a parsed note return itself
+
+[0.1.0]
+- First version
+- Parse notes with accidentals
