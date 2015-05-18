@@ -1,0 +1,31 @@
+{
+  "name": "note-parse",
+  "version": "0.1.0",
+  "description": "Parse music notes with javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "vows test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danigb/note-parse.git"
+  },
+  "keywords": [
+    "note",
+    "parse",
+    "music",
+    "teoria",
+    "solfege",
+    "theory",
+    "score"
+  ],
+  "author": "= <=>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danigb/note-parse/issues"
+  },
+  "homepage": "https://github.com/danigb/note-parse#readme",
+  "devDependencies": {
+    "vows": "^0.8.1"
+  }
+}
