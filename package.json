@@ -1,5 +1,5 @@
 {
-  "name": "note-parse",
+  "name": "note-parser",
   "version": "0.2.0",
   "description": "Parse music notes with javascript",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danigb/note-parse.git"
+    "url": "git+https://github.com/danigb/note-parser.git"
   },
   "keywords": [
     "note",
@@ -22,9 +22,9 @@
   "author": "= <=>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danigb/note-parse/issues"
+    "url": "https://github.com/danigb/note-parser/issues"
   },
-  "homepage": "https://github.com/danigb/note-parse#readme",
+  "homepage": "https://github.com/danigb/note-parser#readme",
   "devDependencies": {
     "vows": "^0.8.1"
   }

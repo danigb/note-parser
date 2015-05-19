@@ -1,9 +1,9 @@
-# note-parse
+# note-parser
 
 Parse notes with javascript. Fast and simple:
 
 ```js
-var parse = require('note-parse');
+var parse = require('note-parser');
 
 parse('C'); // => { pitchClass: 'c', accidentals: '', octave: 2 }
 parse('D#4'); // => { pitchClass: 'd', accidentals: '#', octave: 4 }
