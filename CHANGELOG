@@ -1,5 +1,6 @@
 [0.3.0]
 - Rename to note-parser
+- Fail fast: parser error now throws exception
 
 [0.2.0]
 - Parse a parsed note return itself

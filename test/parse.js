@@ -22,21 +22,23 @@ vows.describe('Note parse').addBatch({
     assert.equal(parse('cbb').accidentals, 'bb');
   },
   "parse octave": function() {
-    assert.equal(parse('c').octave, 2);
     assert.equal(parse('c3').octave, 3);
     assert.equal(parse('c-1').octave, -1);
     assert.equal(parse('c-2').octave, -2);
   },
+  "default octave": function() {
+    assert.equal(parse('c').octave, 2);
+  },
   "invalid pitchClass": function() {
-    assert.equal(parse('i'), null);
+    assert.throws(function () { parse('i'); }, Error);
   },
   "invalid accidentals": function() {
-    assert.equal(parse('c###'), null);
-    assert.equal(parse('cbbb'), null);
-    assert.equal(parse('c#b'), null);
-    assert.equal(parse('cb#'), null);
+    assert.throws(function () { parse('c###'); }, Error);
+    assert.throws(function () { parse('cbbb'); }, Error);
+    assert.throws(function () { parse('c#b') }, Error);
+    assert.throws(function () { parse('cb#') }, Error);
   },
   "invalid octave": function() {
-    assert.equal(parse('c11'), null);
+    assert.throws(function () { parse('c11') }, Error);
   }
 }).export(module);
