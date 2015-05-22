@@ -10,7 +10,7 @@ var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?\d{0,1})$/
  * - accidentals: the accidentals (or '' if no accidentals)
  * - octave: the octave as integer. If not present in the string, its 2
  */
-module.exports = function(note, options) {
+var parse = function(note, options) {
   if(typeof(note.pitchClass) !== 'undefined'
     && typeof(note.accidentals) !== 'undefined'
     && typeof(note.octave) !== 'undefined') {
@@ -25,3 +25,9 @@ module.exports = function(note, options) {
   }
   throw Error("Invalid note format: " + note);
 }
+
+parse.toString = function(obj) {
+  return obj.pitchClass + obj.accidentals + obj.octave;
+}
+
+module.exports = parse;

@@ -1,3 +1,8 @@
+[MASTER]
+
+[0.4.0]
+- Add parse.toString method
+
 [0.3.0]
 - Rename to note-parser
 - Fail fast: parser error now throws exception
