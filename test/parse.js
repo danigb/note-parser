@@ -11,23 +11,23 @@ vows.describe('Note parse').addBatch({
     assert(rep === note);
   },
   "parse pitchClass": function() {
-    assert.equal(parse('c').pitchClass, 'c');
-    assert.equal(parse('C').pitchClass, 'c');
+    assert.equal(parse('c').pc, 'c');
+    assert.equal(parse('C').pc, 'c');
   },
   "parse accidentals": function() {
-    assert.equal(parse('c').accidentals, '');
-    assert.equal(parse('c#').accidentals, '#');
-    assert.equal(parse('c##').accidentals, '##');
-    assert.equal(parse('cb').accidentals, 'b');
-    assert.equal(parse('cbb').accidentals, 'bb');
+    assert.equal(parse('c').acc, '');
+    assert.equal(parse('c#').acc, '#');
+    assert.equal(parse('c##').acc, '##');
+    assert.equal(parse('cb').acc, 'b');
+    assert.equal(parse('cbb').acc, 'bb');
   },
   "parse octave": function() {
-    assert.equal(parse('c3').octave, 3);
-    assert.equal(parse('c-1').octave, -1);
-    assert.equal(parse('c-2').octave, -2);
+    assert.equal(parse('c3').oct, 3);
+    assert.equal(parse('c-1').oct, -1);
+    assert.equal(parse('c-2').oct, -2);
   },
   "default octave": function() {
-    assert.equal(parse('c').octave, 2);
+    assert.equal(parse('c').oct, 4);
   },
   "invalid pitchClass": function() {
     assert.throws(function () { parse('i'); }, Error);
