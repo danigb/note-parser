@@ -10,7 +10,7 @@ Add the module to your project: `npm i --save note-parser` and require it:
 var parse = require('note-parser');
 ```
 
-### parse(noteString [, defaultOctave, defaultValue ])
+#### parse(noteString [, defaultOctave, defaultValue ])
 
 Use the function to parse notes:
 
@@ -24,6 +24,8 @@ attributes:
 - pc: pitchClass, the _letter_ of the note. From `"a"` to `"g"`. __Always__ in lowecase.
 - acc: a string with the accidentals. An empty string if no accidentals present.
 - oct: the octave as integer.
+- midi: the midi number
+- freq: the note frequency
 
 You can change the default octave with the second parameter. Otherwise is 4:
 
@@ -48,7 +50,7 @@ var n = parse('C');
 n === parse(n) // => true
 ```
 
-### parse.toString
+#### parse.toString
 
 Call parse.toString to convert from the parsed object back to a string:
 
