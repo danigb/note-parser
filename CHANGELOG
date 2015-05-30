@@ -1,5 +1,9 @@
 [MASTER]
 
+[0.7.0]
+- Add midi note
+- Add frequency
+
 [0.6.0]
 - Add defaultOctave param
 - Add defaultValue param

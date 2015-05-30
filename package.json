@@ -1,7 +1,7 @@
 {
   "name": "note-parser",
-  "version": "0.6.0",
-  "description": "Parse music notes with javascript",
+  "version": "0.7.0",
+  "description": "Parse music notes, get pichClass, accidetals, octave, midi and freq",
   "main": "index.js",
   "scripts": {
     "test": "vows test/*.js"
@@ -13,6 +13,9 @@
   "keywords": [
     "note",
     "parse",
+    "pitch",
+    "midi",
+    "frequency",
     "music",
     "teoria",
     "solfege",

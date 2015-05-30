@@ -1,6 +1,7 @@
 # note-parser
 
-Parse notes with javascript. Fast and simple:
+Parse notes with javascript. Fast and simple: give it a string, obtain a hash
+with note's pitchClass, accidentals, octave, midi number and frequency.
 
 ## Usage
 
@@ -14,8 +15,8 @@ var parse = require('note-parser');
 Use the function to parse notes:
 
 ```js
-parse('Db4'); // => { pc: 'd', acc: 'b', oct: 4 }
-parse('f##-2'); // => { pc: 'f', acc: '##', oct: -2 }
+parse('Db4'); // => { pc: 'd', acc: 'b', oct: 4, midi: 61, freq: 277.18 }
+parse('f##-2'); // => { pc: 'f', acc: '##', oct: -2, midi: -5, freq: 6.12 }
 ```
 
 The parse method receives a string and return an object with the following
@@ -27,8 +28,8 @@ attributes:
 You can change the default octave with the second parameter. Otherwise is 4:
 
 ```js
-parse('C', 2); // => { pc: 'c', acc: '', oct: 2 }
-parse('C'); // => { pc: 'c', acc: '', oct: 4 }
+parse('C'); // => { pc: 'c', acc: '', oct: 4, midi: 60, freq: 261.63 }
+parse('C', 2); // => { pc: 'c', acc: '', oct: 2, midi: 36, freq: 65.41 }
 ```
 
 If defaultValue is not defined, the parse throws an exception if the note format is invalid.
@@ -36,7 +37,7 @@ Otherwise returns the defaultValue:
 
 ```js
 parse('blah'); // => throws Error
-parse('blah', 2, parse('C4')); // => { pc: 'c', acc: '', oct: 4 }
+parse('blah', 2, parse('C4')); // => { pc: 'c', acc: '', oct: 4 ... }
 parse('blah', 2, null); // => null
 ```
 
