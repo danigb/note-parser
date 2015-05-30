@@ -10,7 +10,7 @@ var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?\d{0,1})$/
  * - acc: the accidentals (or '' if no accidentals)
  * - oct: the octave as integer. By default is 4
  */
-var parse = function(note, options) {
+var parse = function(note, defaultOctave, defaultValue) {
   if(typeof(note.pc) !== 'undefined'
     && typeof(note.acc) !== 'undefined'
     && typeof(note.oct) !== 'undefined') {
@@ -19,11 +19,13 @@ var parse = function(note, options) {
 
   var match = NOTE.exec(note);
   if(match) {
-    var octave = match[3] !== '' ? +match[3] : 4;
+    defaultOctave = defaultOctave || 4;
+    var octave = match[3] !== '' ? +match[3] : defaultOctave;
     return { pc: match[1].toLowerCase(),
       acc: match[2], oct: octave };
   }
-  throw Error("Invalid note format: " + note);
+  if (typeof(defaultValue) !== 'undefined') return defaultValue;
+  else throw Error("Invalid note format: " + note);
 }
 
 parse.toString = function(obj) {

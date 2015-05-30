@@ -28,6 +28,12 @@ vows.describe('Note parse').addBatch({
   },
   "default octave": function() {
     assert.equal(parse('c').oct, 4);
+    assert.equal(parse('c', 2).oct, 2);
+  },
+  "default value": function() {
+    assert.throws(function () { parse('blah'); }, Error);
+    assert.equal(parse('blah', 2, 'blah'), 'blah');
+    assert.equal(parse('blah', 2, null), null);
   },
   "invalid pitchClass": function() {
     assert.throws(function () { parse('i'); }, Error);

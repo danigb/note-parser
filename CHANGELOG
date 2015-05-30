@@ -1,5 +1,9 @@
 [MASTER]
 
+[0.6.0]
+- Add defaultOctave param
+- Add defaultValue param
+
 [0.5.0]
 - Octave is, by default, 4
 - Rename pitchClass to pc
