@@ -10,7 +10,7 @@ Add the module to your project: `npm i --save note-parser` and require it:
 var parse = require('note-parser');
 ```
 
-### parse(noteString, defaultOctave, defaultValue)
+### parse(noteString [, defaultOctave, defaultValue ])
 
 Use the function to parse notes:
 
