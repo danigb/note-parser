@@ -1,5 +1,8 @@
 # note-parser
 
+[![Code Climate](https://codeclimate.com/github/danigb/note-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/note-parser)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 Parse notes with javascript. Fast and simple: give it a string, obtain a hash
 with note's pitchClass, accidentals, octave, midi number and frequency.
 
