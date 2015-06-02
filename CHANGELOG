@@ -1,5 +1,8 @@
 [MASTER]
 
+[0.8.0]
+- Move to standard js style
+
 [0.7.0]
 - Add midi note
 - Add frequency
