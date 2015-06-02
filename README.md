@@ -15,8 +15,11 @@ var parse = require('note-parser');
 Use the function to parse notes:
 
 ```js
-parse('Db4'); // => { pc: 'd', acc: 'b', oct: 4, midi: 61, freq: 277.18 }
+parse('Db4');   // => { pc: 'd', acc: 'b', oct: 4, midi: 61, freq: 277.18 }
 parse('f##-2'); // => { pc: 'f', acc: '##', oct: -2, midi: -5, freq: 6.12 }
+parse('Eb++');  // => { pc: 'e', acc: 'b', oct: 6, midi: 87, freq: 1244.50 }
+parse('b#-');   // => { pc: 'b', acc: '#', oct: 3, midi: 60, freq: 261.62 }
+parse('g');     // => { pc: 'g', acc: '', oct: 4, midi: 67, freq: 391.99 }
 ```
 
 The parse method receives a string and return an object with the following
@@ -30,8 +33,10 @@ attributes:
 You can change the default octave with the second parameter. Otherwise is 4:
 
 ```js
-parse('C'); // => { pc: 'c', acc: '', oct: 4, midi: 60, freq: 261.63 }
-parse('C', 2); // => { pc: 'c', acc: '', oct: 2, midi: 36, freq: 65.41 }
+parse('C');      // => { pc: 'c', acc: '', oct: 4, midi: 60, freq: 261.63 }
+parse('C', 2);   // => { pc: 'c', acc: '', oct: 2, midi: 36, freq: 65.41 }
+parse('C+', 2);  // => { pc: 'c', acc: '', oct: 3, midi: 48, freq: 130.81 }
+parse('C--', 2); // => { pc: 'c', acc: '', oct: 0, midi: 12, freq: 16.35 }
 ```
 
 If defaultValue is not defined, the parse throws an exception if the note format is invalid.

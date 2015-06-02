@@ -1,6 +1,6 @@
 'use strict'
 
-var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?\d{0,1})$/
+var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?[0-9]{1}|[+]{0,2}|[-]{0,2})$/
 /*
  * parseNote
  *
@@ -11,11 +11,24 @@ var NOTE = /^([a-gA-G])(#{0,2}|b{0,2})(-?\d{0,1})$/
  * - oct: the octave as integer. By default is 4
  */
 var parse = function (note, defaultOctave, defaultValue) {
-  var parsed, match
+  var parsed, match, octave
+
+  // in scientific notation middleC is 4
+  defaultOctave = defaultOctave || 4
+  // test string against regex
   if (typeof note === 'string' && (match = NOTE.exec(note))) {
-    var octave = match[3] !== '' ? +match[3] : (defaultOctave || 4)
+    // match[3] is the octave part
+    if (match[3].length > 0 && !isNaN(match[3])) {
+      octave = +match[3]
+    } else if (match[3][0] === '+') {
+      octave = defaultOctave + match[3].length
+    } else if (match[3][0] === '-') {
+      octave = defaultOctave - match[3].length
+    } else {
+      octave = defaultOctave
+    }
     parsed = { pc: match[1].toLowerCase(),
-    acc: match[2], oct: octave }
+      acc: match[2], oct: octave }
   } else if (typeof note.pc !== 'undefined'
     && typeof note.acc !== 'undefined'
     && typeof note.oct !== 'undefined') {

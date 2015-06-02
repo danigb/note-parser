@@ -1,6 +1,7 @@
 [MASTER]
 
 [0.8.0]
+- Add plus and minus notation (impro-visor style)
 - Move to standard js style
 
 [0.7.0]
