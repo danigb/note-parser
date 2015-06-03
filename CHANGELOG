@@ -1,5 +1,8 @@
 [MASTER]
 
+[0.9.0]
+- Add name and remove toString
+
 [0.8.0]
 - Add plus and minus notation (impro-visor style)
 - Move to standard js style

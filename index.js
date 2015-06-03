@@ -36,6 +36,7 @@ var parse = function (note, defaultOctave, defaultValue) {
   }
 
   if (parsed) {
+    parsed.name = parsed.name || '' + parsed.pc + parsed.acc + parsed.oct
     parsed.midi = parsed.midi || toMidi(parsed)
     parsed.freq = parsed.freq || midiToFrequency(parsed.midi)
     return parsed
@@ -44,10 +45,6 @@ var parse = function (note, defaultOctave, defaultValue) {
   } else {
     throw Error('Invalid note format: ' + note)
   }
-}
-
-parse.toString = function (obj) {
-  return obj.pc + obj.acc + obj.oct
 }
 
 var SEMITONES = {c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11 }
