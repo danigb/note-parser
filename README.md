@@ -15,10 +15,39 @@ var parser = require('note-parser')
 parser.parse('c#4') // => { letter: 'C', acc: '#', ... midi: 61, freq: 277.1826309768721 }
 ```
 
-The following properties are returned:
+The returned object will contain:
+
+- letter: the uppercase letter of the note
+- acc: the accidentals of the note (only sharps or flats)
+- pc: the pitch class (letter + acc)
+- step: s a numeric representation of the letter. It's an integer from 0 to 6 where 0 = C, 1 = D ... 6 = B
+- alt: a numeric representation of the accidentals. 0 means no alteration,
+positive numbers are for sharps and negative for flats
+- chroma: a numeric representation of the pitch class. It's like midi for
+pitch classes. 0 = C, 1 = C#, 2 = D ... It can have negative values: -1 = Cb.
+
+If the note name has octave, the returned object will additionally have:
+
+- oct: the octave number (as integer)
+- midi: the midi number
+- freq: the frequency (using tuning parameter as base)
+
+If the parameter `isTonic` is set to true another property is included:
+
+- tonicOf: the rest of the string that follows note name (left and right trimmed)  
+
 
 
 ## Tests and documentation
+
+You can read the [generated API documentation here](https://github.com/danigb/note-parser/blob/master/API.md)
+
+To run the test clone this repo and:
+
+```
+npm i
+npm test
+```
 
 ## License
 
