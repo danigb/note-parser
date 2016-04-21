@@ -1,6 +1,6 @@
 # note-parser [![npm](https://img.shields.io/npm/v/note-parser.svg)](https://www.npmjs.com/package/note-parser)
 
-[![Code Climate](https://codeclimate.com/github/danigb/note-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/note-parser)
+[![Build Status](https://travis-ci.org/danigb/note-parser.svg?branch=master)](https://travis-ci.org/danigb/note-parser) [![Code Climate](https://codeclimate.com/github/danigb/note-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/note-parser)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
 Parse note names (in [scientific notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)) with javascript. Fast and simple: give it a string, obtain a hash
