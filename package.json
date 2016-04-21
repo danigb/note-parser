@@ -1,10 +1,11 @@
 {
   "name": "note-parser",
-  "version": "0.9.0",
-  "description": "Parse music note, obtain pichClass, accidetals, octave, midi and freq",
+  "version": "1.0.0",
+  "description": "Parse music note names in scientific notation",
   "main": "index.js",
   "scripts": {
-    "test": "vows test/*.js"
+    "test": "mocha",
+    "api": "jsdoc2md index.js > API.md"
   },
   "repository": {
     "type": "git",
@@ -13,23 +14,18 @@
   "keywords": [
     "note",
     "parse",
+    "parser",
     "pitch",
-    "pitchClass",
     "midi",
-    "frequency",
-    "music",
-    "teoria",
-    "solfege",
-    "theory",
-    "score"
+    "frequency"
   ],
-  "author": "= <=>",
+  "author": "danigb <danigb@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/danigb/note-parser/issues"
   },
   "homepage": "https://github.com/danigb/note-parser#readme",
   "devDependencies": {
-    "vows": "^0.8.1"
+    "mocha": "^2.4.5"
   }
 }
