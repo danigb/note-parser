@@ -1,4 +1,4 @@
-# note-parser
+# note-parser [![npm](https://img.shields.io/npm/v/note-parser.svg)](https://www.npmjs.com/package/note-parser)
 
 [![Code Climate](https://codeclimate.com/github/danigb/note-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/note-parser)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
@@ -36,7 +36,22 @@ If the parameter `isTonic` is set to true another property is included:
 
 - tonicOf: the rest of the string that follows note name (left and right trimmed)  
 
+#### Midi note number and frequency
 
+If you are interested only in midi numbers or frequencies, you can use `midi` function:
+
+```js
+var midi = require('note-parser').midi
+midi('A4') // => 69
+midi('blah') // => null
+```
+
+or the `freq` function:
+
+```js
+var freq = require('note-parser').freq
+freq('A4') // => 440
+```
 
 ## Tests and documentation
 

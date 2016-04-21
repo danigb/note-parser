@@ -8,10 +8,10 @@
 <dd><p>Parse a note name in scientific notation an return it&#39;s components,
 and some numeric properties including midi number and frequency.</p>
 </dd>
-<dt><a href="#midi">midi(name)</a> ⇒ <code>Integer</code></dt>
+<dt><a href="#midi">midi(note)</a> ⇒ <code>Integer</code></dt>
 <dd><p>Get midi of a note</p>
 </dd>
-<dt><a href="#freq">freq(name)</a> ⇒ <code>Float</code></dt>
+<dt><a href="#freq">freq(note)</a> ⇒ <code>Float</code></dt>
 <dd><p>Get freq of a note in hertzs (in a well tempered 440Hz A4)</p>
 </dd>
 </dl>
@@ -98,7 +98,7 @@ parse('fx')
 ```
 <a name="midi"></a>
 
-## midi(name) ⇒ <code>Integer</code>
+## midi(note) ⇒ <code>Integer</code>
 Get midi of a note
 
 **Kind**: global function  
@@ -107,7 +107,7 @@ or the note does NOT contains octave
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | the note name |
+| note | <code>String</code> | the note name |
 
 **Example**  
 ```js
@@ -117,7 +117,7 @@ parser.midi('A') // => null
 ```
 <a name="freq"></a>
 
-## freq(name) ⇒ <code>Float</code>
+## freq(note) ⇒ <code>Float</code>
 Get freq of a note in hertzs (in a well tempered 440Hz A4)
 
 **Kind**: global function  
@@ -126,7 +126,7 @@ or the note does NOT contains octave
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | the note name |
+| note | <code>String</code> | the note name |
 
 **Example**  
 ```js

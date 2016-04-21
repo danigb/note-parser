@@ -1,5 +1,10 @@
 [MASTER]
 
+[1.0.0]
+- Add better REGEX support
+- Add function for each property
+- Add chroma, alt
+
 [0.9.0]
 - Add name and remove toString
 
