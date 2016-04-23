@@ -3,8 +3,10 @@
 [![Build Status](https://travis-ci.org/danigb/note-parser.svg?branch=master)](https://travis-ci.org/danigb/note-parser) [![Code Climate](https://codeclimate.com/github/danigb/note-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/note-parser)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-Parse note names (in [scientific notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)) with javascript. Fast and simple: give it a string, obtain a hash
+Parse note names (in [scientific notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)) with javascript. Given a string, obtain a hash
 with note properties (including midi number and frequency)
+
+If you need parse interval names take a look to [interval-notation](https://github.com/danigb/interval-notation)
 
 ## Usage
 
@@ -17,24 +19,24 @@ parser.parse('c#4') // => { letter: 'C', acc: '#', ... midi: 61, freq: 277.18263
 
 The returned object will contain:
 
-- letter: the uppercase letter of the note
-- acc: the accidentals of the note (only sharps or flats)
-- pc: the pitch class (letter + acc)
-- step: s a numeric representation of the letter. It's an integer from 0 to 6 where 0 = C, 1 = D ... 6 = B
-- alt: a numeric representation of the accidentals. 0 means no alteration,
+- `letter`: the uppercase letter of the note
+- `acc`: the accidentals of the note (only sharps or flats)
+- `pc`: the pitch class (letter + acc)
+- `step`: s a numeric representation of the letter. It's an integer from 0 to 6 where 0 = C, 1 = D ... 6 = B
+- `alt`: a numeric representation of the accidentals. 0 means no alteration,
 positive numbers are for sharps and negative for flats
-- chroma: a numeric representation of the pitch class. It's like midi for
+- `chroma`: a numeric representation of the pitch class. It's like midi for
 pitch classes. 0 = C, 1 = C#, 2 = D ... It can have negative values: -1 = Cb.
 
 If the note name has octave, the returned object will additionally have:
 
-- oct: the octave number (as integer)
-- midi: the midi number
-- freq: the frequency (using tuning parameter as base)
+- `oct`: the octave number (as integer)
+- `midi`: the midi number
+- `freq`: the frequency (using tuning parameter as base)
 
 If the parameter `isTonic` is set to true another property is included:
 
-- tonicOf: the rest of the string that follows note name (left and right trimmed)  
+- `tonicOf`: the rest of the string that follows note name (left and right trimmed)  
 
 #### Midi note number and frequency
 

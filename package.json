@@ -17,6 +17,8 @@
     "parser",
     "pitch",
     "midi",
+    "scientific",
+    "notation",
     "frequency"
   ],
   "author": "danigb <danigb@gmail.com>",
@@ -26,6 +28,6 @@
   },
   "homepage": "https://github.com/danigb/note-parser#readme",
   "devDependencies": {
-    "mocha": "^2.4.5"
+    "mocha": "*"
   }
 }
