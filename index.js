@@ -84,7 +84,6 @@ function parse (str, isTonic, tuning) {
   if (typeof str !== 'string') return null
   var m = REGEX.exec(str)
   if (!m || !isTonic && m[4]) return null
-  tuning = tuning || 440
 
   var p = { letter: m[1].toUpperCase(), acc: m[2].replace(/x/g, '##') }
   p.pc = p.letter + p.acc
@@ -94,25 +93,31 @@ function parse (str, isTonic, tuning) {
   if (m[3]) {
     p.oct = +m[3]
     p.midi = p.chroma + 12 * (p.oct + 1)
-    p.freq = Math.pow(2, (p.midi - 69) / 12) * tuning
+    p.freq = midiToFreq(p.midi, tuning)
   }
   if (isTonic) p.tonicOf = m[4]
   return p
 }
 
-// add a property getter to a lib
-function getter (lib, name) {
-  lib[name] = function (src) {
+/**
+ * Given a midi number, return its frequency
+ * @param {Integer} midi - midi note number
+ * @param {Float} tuning - (Optional) the A4 tuning (440Hz by default)
+ * @return {Float} frequency in hertzs
+ */
+function midiToFreq (midi, tuning) {
+  return Math.pow(2, (midi - 69) / 12) * (tuning || 440)
+}
+
+var parser = { parse: parse, regex: regex, midiToFreq: midiToFreq }
+var FNS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct', 'midi', 'freq']
+FNS.forEach(function (name) {
+  parser[name] = function (src) {
     var p = parse(src)
     return p && (typeof p[name] !== 'undefined') ? p[name] : null
   }
-  return lib
-}
+})
 
-var PROPS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct', 'midi', 'freq']
-var parser = PROPS.reduce(getter, {})
-parser.regex = regex
-parser.parse = parse
 module.exports = parser
 
 // extra API docs

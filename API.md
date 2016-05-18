@@ -8,6 +8,9 @@
 <dd><p>Parse a note name in scientific notation an return it&#39;s components,
 and some numeric properties including midi number and frequency.</p>
 </dd>
+<dt><a href="#midiToFreq">midiToFreq(midi, tuning)</a> ⇒ <code>Float</code></dt>
+<dd><p>Given a midi number, return its frequency</p>
+</dd>
 <dt><a href="#midi">midi(note)</a> ⇒ <code>Integer</code></dt>
 <dd><p>Get midi of a note</p>
 </dd>
@@ -96,6 +99,19 @@ parse('Cb4')
 parse('fx')
 // => { letter: 'F', acc: '##', pc: 'F##', step: 3, alt: 2, chroma: 7 })
 ```
+<a name="midiToFreq"></a>
+
+## midiToFreq(midi, tuning) ⇒ <code>Float</code>
+Given a midi number, return its frequency
+
+**Kind**: global function  
+**Returns**: <code>Float</code> - frequency in hertzs  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| midi | <code>Integer</code> | midi note number |
+| tuning | <code>Float</code> | (Optional) the A4 tuning (440Hz by default) |
+
 <a name="midi"></a>
 
 ## midi(note) ⇒ <code>Integer</code>

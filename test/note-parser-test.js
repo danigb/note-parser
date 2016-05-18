@@ -127,4 +127,11 @@ describe('note parser', function () {
         349.2282314330039, 391.99543598174927, 440, 493.8833012561241])
     })
   })
+  describe('midiToFreq', function () {
+    it('converts midi numbers to frequency', function () {
+      assert.deepEqual(parser.midiToFreq(60), 261.6255653005986)
+      assert.deepEqual(parser.midiToFreq(60, 444), 264.00397953060406)
+      assert.deepEqual(parser.midiToFreq(60), parser.midiToFreq(60, 440))
+    })
+  })
 })

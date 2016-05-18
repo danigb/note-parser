@@ -1,11 +1,12 @@
 {
   "name": "note-parser",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Parse music note names in scientific notation",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "api": "jsdoc2md index.js > API.md"
+    "api": "jsdoc2md index.js > API.md",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",
@@ -15,7 +16,6 @@
     "note",
     "parse",
     "parser",
-    "pitch",
     "midi",
     "scientific",
     "notation",

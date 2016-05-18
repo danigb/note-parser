@@ -1,5 +1,8 @@
 [MASTER]
 
+[1.1.0]
+- Add toFreq function
+
 [1.0.0]
 - Add better REGEX support
 - Add function for each property

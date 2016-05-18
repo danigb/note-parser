@@ -55,6 +55,14 @@ var freq = require('note-parser').freq
 freq('A4') // => 440
 ```
 
+You can use also the `midiToFreq` function if you need:
+
+```js
+var midiToFreq = require('note-parser').midiToFreq
+midiToFreq(69) // => 440
+midiToFreq(69, 444) // => 444
+```
+
 ## Tests and documentation
 
 You can read the [generated API documentation here](https://github.com/danigb/note-parser/blob/master/API.md)
