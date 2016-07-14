@@ -11,13 +11,10 @@ and some numeric properties including midi number and frequency.</p>
 <dt><a href="#build">build(obj)</a> ⇒ <code>String</code></dt>
 <dd><p>Create a string from a parsed object or <code>step, alteration, octave</code> parameters</p>
 </dd>
-<dt><a href="#midiToFreq">midiToFreq(midi, tuning)</a> ⇒ <code>Float</code></dt>
-<dd><p>Given a midi number, return its frequency</p>
-</dd>
 <dt><a href="#midi">midi(note)</a> ⇒ <code>Integer</code></dt>
 <dd><p>Get midi of a note</p>
 </dd>
-<dt><a href="#freq">freq(note)</a> ⇒ <code>Float</code></dt>
+<dt><a href="#freq">freq(note, tuning)</a> ⇒ <code>Float</code></dt>
 <dd><p>Get freq of a note in hertzs (in a well tempered 440Hz A4)</p>
 </dd>
 </dl>
@@ -75,8 +72,8 @@ where 0 = C, 1 = D ... 6 = B
 - alt: a numeric representation of the accidentals. 0 means no alteration,
 positive numbers are for sharps and negative for flats
 - chroma: a numeric representation of the pitch class. It's like midi for
-pitch classes. 0 = C, 1 = C#, 2 = D ... It can have negative values: -1 = Cb.
-Can detect pitch class enhramonics.
+pitch classes. 0 = C, 1 = C#, 2 = D ... 11 = B. Can be used to find enharmonics
+since, for example, chroma of 'Cb' and 'B' are both 11
 
 If the note has octave, the parser object will contain:
 - oct: the octave number (as integer)
@@ -89,7 +86,7 @@ If the parameter `isTonic` is set to true, the parsed object will contain:
 | Param | Type | Description |
 | --- | --- | --- |
 | note | <code>String</code> | the note string to be parsed |
-| isTonic | <code>Boolean</code> | true if the note is the tonic of something. If true, en extra tonicOf property is returned. It's false by default. |
+| isTonic | <code>Boolean</code> | true the strings it's supposed to contain a note number and some category (for example an scale: 'C# major'). It's false by default, but when true, en extra tonicOf property is returned with the category ('major') |
 | tunning | <code>Float</code> | The frequency of A4 note to calculate frequencies. By default it 440. |
 
 **Example**  
@@ -109,6 +106,7 @@ Create a string from a parsed object or `step, alteration, octave` parameters
 
 **Kind**: global function  
 **Returns**: <code>String</code> - a note string or null if not valid parameters  
+**Since**: 1.2  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -117,21 +115,14 @@ Create a string from a parsed object or `step, alteration, octave` parameters
 **Example**  
 ```js
 parser.build(parser.parse('cb2')) // => 'Cb2'
+```
+**Example**  
+```js
+// it accepts (step, alteration, octave) parameters:
+parser.build(3) // => 'F'
+parser.build(3, -1) // => 'Fb'
 parser.build(3, -1, 4) // => 'Fb4'
 ```
-<a name="midiToFreq"></a>
-
-## midiToFreq(midi, tuning) ⇒ <code>Float</code>
-Given a midi number, return its frequency
-
-**Kind**: global function  
-**Returns**: <code>Float</code> - frequency in hertzs  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| midi | <code>Integer</code> | midi note number |
-| tuning | <code>Float</code> | (Optional) the A4 tuning (440Hz by default) |
-
 <a name="midi"></a>
 
 ## midi(note) ⇒ <code>Integer</code>
@@ -143,7 +134,7 @@ or the note does NOT contains octave
 
 | Param | Type | Description |
 | --- | --- | --- |
-| note | <code>String</code> | the note name |
+| note | <code>String</code> &#124; <code>Integer</code> | the note name or midi number |
 
 **Example**  
 ```js
@@ -151,22 +142,40 @@ var parser = require('note-parser')
 parser.midi('A4') // => 69
 parser.midi('A') // => null
 ```
+**Example**  
+```js
+// midi numbers are bypassed (even as strings)
+parser.midi(60) // => 60
+parser.midi('60') // => 60
+```
 <a name="freq"></a>
 
-## freq(note) ⇒ <code>Float</code>
+## freq(note, tuning) ⇒ <code>Float</code>
 Get freq of a note in hertzs (in a well tempered 440Hz A4)
 
 **Kind**: global function  
-**Returns**: <code>Float</code> - the freq of the number if hertzs or null if not valid note
-or the note does NOT contains octave  
+**Returns**: <code>Float</code> - the freq of the number if hertzs or null if not valid note  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| note | <code>String</code> | the note name |
+| note | <code>String</code> | the note name or note midi number |
+| tuning | <code>String</code> | (Optional) the A4 frequency (440 by default) |
 
 **Example**  
 ```js
 var parser = require('note-parser')
 parser.freq('A4') // => 440
 parser.freq('A') // => null
+```
+**Example**  
+```js
+// can change tuning (440 by default)
+parser.freq('A4', 444) // => 444
+parser.freq('A3', 444) // => 222
+```
+**Example**  
+```js
+// it accepts midi numbers (as numbers and as strings)
+parser.freq(69) // => 440
+parser.freq('69', 442) // => 442
 ```

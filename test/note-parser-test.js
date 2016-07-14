@@ -18,7 +18,7 @@ describe('note parser', function () {
     })
     it('parse notes', function () {
       assert.deepEqual(parse('Cb4'),
-      { letter: 'C', acc: 'b', pc: 'Cb', step: 0, alt: -1, chroma: -1,
+      { letter: 'C', acc: 'b', pc: 'Cb', step: 0, alt: -1, chroma: 11,
         oct: 4, midi: 59, freq: 246.94165062806206 })
       assert.deepEqual(parse('A#4'),
       { letter: 'A', acc: '#', pc: 'A#', step: 5, alt: 1, chroma: 10,
@@ -112,9 +112,13 @@ describe('note parser', function () {
     var chromas = map(parser.chroma)
     it('get chroma', function () {
       assert.deepEqual(chromas('cb c db d eb e fb f gb g ab a bb b'),
-        [ -1, 0, 1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11 ])
+        [ 11, 0, 1, 2, 3, 4, 4, 5, 6, 7, 8, 9, 10, 11 ])
       assert.deepEqual(chromas('c c# d d# e e# f f# g g# a a# b b#'),
-        [ 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11, 12 ])
+        [ 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11, 0 ])
+    })
+    it('can be used to find enharmonics', function () {
+      assert.equal(parser.chroma('Cb'), parser.chroma('B'))
+      assert.equal(parser.chroma('B#'), parser.chroma('C'))
     })
   })
   describe('oct', function () {
@@ -145,23 +149,32 @@ describe('note parser', function () {
       assert.deepEqual(midis('c4 d4 e4 f4 g4 a4 b4'),
         [ 60, 62, 64, 65, 67, 69, 71 ])
     })
+    it('bypasses midi numbers', function () {
+      assert.equal(parser.midi(60), 60)
+      assert.equal(parser.midi(-1), null)
+      assert.equal(parser.midi(128), null)
+    })
+    it('bypasses string midi numbers', function () {
+      assert.equal(parser.midi('60'), 60)
+    })
   })
   describe('freq', function () {
     it('no freq for pitch classes', function () {
       assert.equal(parser.freq('c'))
     })
     it('get frequencies', function () {
-      var freqs = map(parser.freq)
+      var freqs = map(function (n) { return parser.freq(n) })
       assert.deepEqual(freqs('c4 d4 e4 f4 g4 a4 b4'),
       [ 261.6255653005986, 293.6647679174076, 329.6275569128699,
         349.2282314330039, 391.99543598174927, 440, 493.8833012561241])
     })
-  })
-  describe('midiToFreq', function () {
-    it('converts midi numbers to frequency', function () {
-      assert.deepEqual(parser.midiToFreq(60), 261.6255653005986)
-      assert.deepEqual(parser.midiToFreq(60, 444), 264.00397953060406)
-      assert.deepEqual(parser.midiToFreq(60), parser.midiToFreq(60, 440))
+    it('get frequencies with different tunning', function () {
+      assert.equal(parser.freq('a4', 444), 444)
+      assert.equal(parser.freq('c4', 442), 262.81477241560134)
+    })
+    it('accepts midi numbers', function () {
+      assert.equal(parser.freq(69, 440), 440)
+      assert.equal(parser.freq('69', 444), 444)
     })
   })
 })

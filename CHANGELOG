@@ -1,10 +1,16 @@
 [MASTER]
 
+[2.0.0]
+- API BREAK: remove midiToFreq function (replaced by freq function that now accepts midi numbers too)
+- chroma values are always inside 0..11 range
+- midi function bypasses midi numbers
+- freq accepts midi numbers and an optional tuning parameter
+
 [1.2.0]
 - Add build function
 
 [1.1.0]
-- Add toFreq function
+- Add midiToFreq function
 
 [1.0.0]
 - Add better REGEX support

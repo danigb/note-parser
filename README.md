@@ -43,24 +43,18 @@ If the parameter `isTonic` is set to true another property is included:
 If you are interested only in midi numbers or frequencies, you can use `midi` function:
 
 ```js
-var midi = require('note-parser').midi
-midi('A4') // => 69
-midi('blah') // => null
+parser.midi('A4') // => 69
+parser.midi('blah') // => null
+parser.midi(60) // => 60
+parser.midi('60') // => 60
 ```
 
 or the `freq` function:
 
 ```js
-var freq = require('note-parser').freq
-freq('A4') // => 440
-```
-
-You can use also the `midiToFreq` function if you need:
-
-```js
-var midiToFreq = require('note-parser').midiToFreq
-midiToFreq(69) // => 440
-midiToFreq(69, 444) // => 444
+parser.freq('A4') // => 440
+parser.freq('A3', 444) // => 222
+parser.freq(69) // => 440
 ```
 
 ### Build the string back
@@ -71,7 +65,7 @@ With the `build` function you can convert back to string:
 parser.build(parser.parse('cb2')) // => 'Cb2'
 ```
 
-The `build` function also accepts `step, alteration, octave` parameters:
+Alternatively the `build` function accepts `step, alteration, octave` parameters:
 
 ```js
 parser.build(3, -2, 4) // => 'Fbb4'
@@ -84,7 +78,7 @@ You can read the [generated API documentation here](https://github.com/danigb/no
 To run the test clone this repo and:
 
 ```
-npm i
+npm install
 npm test
 ```
 
