@@ -2,7 +2,7 @@
 
 // util
 function fillStr (s, num) { return Array(num + 1).join(s) }
-function isNotNum (x) { return typeof x !== 'number' }
+function isNum (x) { return typeof x === 'number' }
 
 var REGEX = /^([a-gA-G])(#{1,}|b{1,}|x{1,}|)(-?\d*)\s*(.*)\s*$/
 /**
@@ -104,8 +104,8 @@ function parse (str, isTonic, tuning) {
 }
 
 var LETTERS = 'CDEFGAB'
-function acc (n) { return isNotNum(n) ? '' : n < 0 ? fillStr('b', -n) : fillStr('#', n) }
-function oct (n) { return isNotNum(n) ? '' : '' + n }
+function acc (n) { return !isNum(n) ? '' : n < 0 ? fillStr('b', -n) : fillStr('#', n) }
+function oct (n) { return !isNum(n) ? '' : '' + n }
 
 /**
  * Create a string from a parsed object or `step, alteration, octave` parameters
@@ -133,24 +133,12 @@ function midiToFreq (midi, tuning) {
   return Math.pow(2, (midi - 69) / 12) * (tuning || 440)
 }
 
-var parser = { parse: parse, build: build, regex: regex, midiToFreq: midiToFreq }
-var FNS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct', 'midi', 'freq']
-FNS.forEach(function (name) {
-  parser[name] = function (src) {
-    var p = parse(src)
-    return p && (typeof p[name] !== 'undefined') ? p[name] : null
-  }
-})
-
-module.exports = parser
-
-// extra API docs
 /**
  * Get midi of a note
  *
  * @name midi
  * @function
- * @param {String} note - the note name
+ * @param {String|Integer} note - the note name or midi number
  * @return {Integer} the midi number of the note or null if not a valid note
  * or the note does NOT contains octave
  * @example
@@ -158,6 +146,20 @@ module.exports = parser
  * parser.midi('A4') // => 69
  * parser.midi('A') // => null
  */
+function midi (note) {
+  var p = parse(note)
+  return p ? p.midi : null
+}
+
+var parser = { parse: parse, build: build, regex: regex, midi: midi, midiToFreq: midiToFreq }
+var FNS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct', 'freq']
+FNS.forEach(function (name) {
+  parser[name] = function (src) {
+    var p = parse(src)
+    return p && (typeof p[name] !== 'undefined') ? p[name] : null
+  }
+})
+
 /**
  * Get freq of a note in hertzs (in a well tempered 440Hz A4)
  *
@@ -171,3 +173,5 @@ module.exports = parser
  * parser.freq('A4') // => 440
  * parser.freq('A') // => null
  */
+
+module.exports = parser
