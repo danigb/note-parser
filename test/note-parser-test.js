@@ -34,6 +34,36 @@ describe('note parser', function () {
       assert.equal(parse('A2', false, 444).freq, 111)
     })
   })
+
+  describe('build', function () {
+    var build = parser.build
+    it('build letters', function () {
+      assert.deepEqual([0, 1, 2, 3, 4, 5, 6].map(function (s) {
+        return build(s)
+      }), [ 'C', 'D', 'E', 'F', 'G', 'A', 'B' ])
+      assert.equal(build(-1), null)
+    })
+    it('build letters and accidentals', function () {
+      assert.deepEqual([0, 1, 2, 3, 4, 5, 6].map(function (i) {
+        return build(0, i)
+      }), [ 'C', 'C#', 'C##', 'C###', 'C####', 'C#####', 'C######' ])
+      assert.deepEqual([0, 1, 2, 3, 4, 5, 6].map(function (i) {
+        return build(0, -i)
+      }), [ 'C', 'Cb', 'Cbb', 'Cbbb', 'Cbbbb', 'Cbbbbb', 'Cbbbbbb' ])
+    })
+    it('build letter accidentals and octaves', function () {
+      assert.deepEqual([-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 10].map(function (i) {
+        return build(0, 0, i)
+      }), [ 'C-4', 'C-3', 'C-2', 'C-1', 'C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C10' ])
+    })
+    it('accepts the parsed object', function () {
+      assert.deepEqual(['c', 'd3', 'e#', 'fx', 'gbb4', 'ab-5', 'bbbbbb-11', 'blah'].map(function (s) {
+        return build(parser.parse(s))
+      }), [ 'C', 'D3', 'E#', 'F##', 'Gbb4', 'Ab-5', 'Bbbbbb-11', null ])
+      assert.equal(build(), null)
+    })
+  })
+
   describe('regex', function () {
     it('regex return a RegExp object', function () {
       assert(parser.regex() instanceof RegExp)

@@ -63,6 +63,20 @@ midiToFreq(69) // => 440
 midiToFreq(69, 444) // => 444
 ```
 
+### Build the string back
+
+With the `build` function you can convert back to string:
+
+```js
+parser.build(parser.parse('cb2')) // => 'Cb2'
+```
+
+The `build` function also accepts `step, alteration, octave` parameters:
+
+```js
+parser.build(3, -2, 4) // => 'Fbb4'
+```
+
 ## Tests and documentation
 
 You can read the [generated API documentation here](https://github.com/danigb/note-parser/blob/master/API.md)

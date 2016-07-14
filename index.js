@@ -1,5 +1,9 @@
 'use strict'
 
+// util
+function fillStr (s, num) { return Array(num + 1).join(s) }
+function isNotNum (x) { return typeof x !== 'number' }
+
 var REGEX = /^([a-gA-G])(#{1,}|b{1,}|x{1,}|)(-?\d*)\s*(.*)\s*$/
 /**
  * A regex for matching note strings in scientific notation.
@@ -99,6 +103,26 @@ function parse (str, isTonic, tuning) {
   return p
 }
 
+var LETTERS = 'CDEFGAB'
+function acc (n) { return isNotNum(n) ? '' : n < 0 ? fillStr('b', -n) : fillStr('#', n) }
+function oct (n) { return isNotNum(n) ? '' : '' + n }
+
+/**
+ * Create a string from a parsed object or `step, alteration, octave` parameters
+ * @param {Object} obj - the parsed data object
+ * @return {String} a note string or null if not valid parameters
+ * @since 1.2
+ * @example
+ * parser.build(parser.parse('cb2')) // => 'Cb2'
+ * parser.build(3, -1, 4) // => 'Fb4'
+ */
+function build (s, a, o) {
+  if (s === null || typeof s === 'undefined') return null
+  if (s.step) return build(s.step, s.alt, s.oct)
+  if (s < 0 || s > 6) return null
+  return LETTERS.charAt(s) + acc(a) + oct(o)
+}
+
 /**
  * Given a midi number, return its frequency
  * @param {Integer} midi - midi note number
@@ -109,7 +133,7 @@ function midiToFreq (midi, tuning) {
   return Math.pow(2, (midi - 69) / 12) * (tuning || 440)
 }
 
-var parser = { parse: parse, regex: regex, midiToFreq: midiToFreq }
+var parser = { parse: parse, build: build, regex: regex, midiToFreq: midiToFreq }
 var FNS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct', 'midi', 'freq']
 FNS.forEach(function (name) {
   parser[name] = function (src) {

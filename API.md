@@ -8,6 +8,9 @@
 <dd><p>Parse a note name in scientific notation an return it&#39;s components,
 and some numeric properties including midi number and frequency.</p>
 </dd>
+<dt><a href="#build">build(obj)</a> ⇒ <code>String</code></dt>
+<dd><p>Create a string from a parsed object or <code>step, alteration, octave</code> parameters</p>
+</dd>
 <dt><a href="#midiToFreq">midiToFreq(midi, tuning)</a> ⇒ <code>Float</code></dt>
 <dd><p>Given a midi number, return its frequency</p>
 </dd>
@@ -98,6 +101,23 @@ parse('Cb4')
 // if no octave, no midi, no freq
 parse('fx')
 // => { letter: 'F', acc: '##', pc: 'F##', step: 3, alt: 2, chroma: 7 })
+```
+<a name="build"></a>
+
+## build(obj) ⇒ <code>String</code>
+Create a string from a parsed object or `step, alteration, octave` parameters
+
+**Kind**: global function  
+**Returns**: <code>String</code> - a note string or null if not valid parameters  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | <code>Object</code> | the parsed data object |
+
+**Example**  
+```js
+parser.build(parser.parse('cb2')) // => 'Cb2'
+parser.build(3, -1, 4) // => 'Fb4'
 ```
 <a name="midiToFreq"></a>
 

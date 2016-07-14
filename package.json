@@ -1,7 +1,7 @@
 {
   "name": "note-parser",
-  "version": "1.1.0",
-  "description": "Parse music note names in scientific notation",
+  "version": "1.2.0",
+  "description": "Parse music notes in scientific notation",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
