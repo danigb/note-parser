@@ -123,7 +123,7 @@ describe('note parser', function () {
   })
   describe('oct', function () {
     it('no octaves for pitch classes', function () {
-      assert(parser.oct('c') === null)
+      assert(parser.oct('c') === undefined)
     })
     it('no max octaves', function () {
       assert.deepEqual(parser.oct('C9999'), 9999)

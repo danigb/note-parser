@@ -1,12 +1,17 @@
 {
   "name": "note-parser",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Parse music notes in scientific notation",
-  "main": "index.js",
+  "main": "dist/note-parser.js",
+  "jsnext:main": "index.js",
+  "module": "index.js",
   "scripts": {
-    "test": "mocha",
+    "pretest": "npm run build",
+    "test": "eslint index.js && mocha",
     "api": "jsdoc2md index.js > API.md",
-    "prepublish": "npm test"
+    "build": "rollup -cm -n NoteParser -f umd -i index.js -o dist/note-parser.js",
+    "prepublish": "npm run build",
+    "release": "npm run build && npm test && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
@@ -28,6 +33,13 @@
   },
   "homepage": "https://github.com/danigb/note-parser#readme",
   "devDependencies": {
-    "mocha": "*"
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "mocha": "*",
+    "rollup-plugin-uglify": "^1.0.1"
   }
 }

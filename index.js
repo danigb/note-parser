@@ -44,7 +44,7 @@ var REGEX = /^([a-gA-G])(#{1,}|b{1,}|x{1,}|)(-?\d*)\s*(.*)\s*$/
  * parser.regex().exec('CMaj7')
  * // => ['CMaj7', 'C', '', '', 'Maj7']
  */
-function regex () { return REGEX }
+export function regex () { return REGEX }
 
 var SEMITONES = [0, 2, 4, 5, 7, 9, 11]
 /**
@@ -90,10 +90,10 @@ var SEMITONES = [0, 2, 4, 5, 7, 9, 11]
  * parse('fx')
  * // => { letter: 'F', acc: '##', pc: 'F##', step: 3, alt: 2, chroma: 7 })
  */
-function parse (str, isTonic, tuning) {
+export function parse (str, isTonic, tuning) {
   if (typeof str !== 'string') return null
   var m = REGEX.exec(str)
-  if (!m || !isTonic && m[4]) return null
+  if (!m || (!isTonic && m[4])) return null
 
   var p = { letter: m[1].toUpperCase(), acc: m[2].replace(/x/g, '##') }
   p.pc = p.letter + p.acc
@@ -111,8 +111,8 @@ function parse (str, isTonic, tuning) {
 }
 
 var LETTERS = 'CDEFGAB'
-function acc (n) { return !isNum(n) ? '' : n < 0 ? fillStr('b', -n) : fillStr('#', n) }
-function oct (n) { return !isNum(n) ? '' : '' + n }
+function accStr (n) { return !isNum(n) ? '' : n < 0 ? fillStr('b', -n) : fillStr('#', n) }
+function octStr (n) { return !isNum(n) ? '' : '' + n }
 
 /**
  * Create a string from a parsed object or `step, alteration, octave` parameters
@@ -128,11 +128,11 @@ function oct (n) { return !isNum(n) ? '' : '' + n }
  * parser.build(3, -1) // => 'Fb'
  * parser.build(3, -1, 4) // => 'Fb4'
  */
-function build (s, a, o) {
+export function build (s, a, o) {
   if (s === null || typeof s === 'undefined') return null
   if (s.step) return build(s.step, s.alt, s.oct)
   if (s < 0 || s > 6) return null
-  return LETTERS.charAt(s) + acc(a) + oct(o)
+  return LETTERS.charAt(s) + accStr(a) + octStr(o)
 }
 
 /**
@@ -152,7 +152,7 @@ function build (s, a, o) {
  * parser.midi(60) // => 60
  * parser.midi('60') // => 60
  */
-function midi (note) {
+export function midi (note) {
   if ((isNum(note) || isStr(note)) && note >= 0 && note < 128) return +note
   var p = parse(note)
   return p && isDef(p.midi) ? p.midi : null
@@ -179,19 +179,15 @@ function midi (note) {
  * parser.freq(69) // => 440
  * parser.freq('69', 442) // => 442
  */
-function freq (note, tuning) {
+export function freq (note, tuning) {
   var m = midi(note)
   return m === null ? null : midiToFreq(m, tuning)
 }
 
-var parser = { parse: parse, build: build, regex: regex, midi: midi, freq: freq }
-// add additional functions, one for each object property
-var FNS = ['letter', 'acc', 'pc', 'step', 'alt', 'chroma', 'oct']
-FNS.forEach(function (name) {
-  parser[name] = function (src) {
-    var p = parse(src)
-    return p && isDef(p[name]) ? p[name] : null
-  }
-})
-
-module.exports = parser
+export function letter (src) { return (parse(src) || {}).letter }
+export function acc (src) { return (parse(src) || {}).acc }
+export function pc (src) { return (parse(src) || {}).pc }
+export function step (src) { return (parse(src) || {}).step }
+export function alt (src) { return (parse(src) || {}).alt }
+export function chroma (src) { return (parse(src) || {}).chroma }
+export function oct (src) { return (parse(src) || {}).oct }
