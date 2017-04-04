@@ -1,5 +1,9 @@
 [MASTER]
 
+[2.0.1]
+- Move to ES6 modules with ES5 fallback via rollup
+- Add eslint configuration and tests
+
 [2.0.0]
 - API BREAK: remove midiToFreq function (replaced by freq function that now accepts midi numbers too)
 - chroma values are always inside 0..11 range
